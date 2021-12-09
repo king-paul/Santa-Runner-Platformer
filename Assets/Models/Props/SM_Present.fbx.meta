@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e01c3e643461fa941b994be0e5f1f004
+guid: 30ad7ad9416599a4e90e258c4c766aeb
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: lambert2
-    second: {fileID: 2100000, guid: 3d968260dc3f8df4bae45ec9b2643595, type: 2}
+    second: {fileID: 2100000, guid: 88fdc2df89bc1124390a3f54410099e1, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -91,7 +91,7 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     globalScale: 1
-    rootMotionBoneName: ROOT_NUB
+    rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
@@ -99,7 +99,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 0
   additionalBone: 0
   userData: 
   assetBundleName: 
