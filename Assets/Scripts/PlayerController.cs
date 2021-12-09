@@ -139,24 +139,34 @@ public class PlayerController : MonoBehaviour
         UpdatePosition();
         UpdateState();
 
+        // check if out of bounds
+        if (transform.position.y <= -20)
+            gameManager.EndGame();
+
         //gameManager.SetJumpMeter(m_JumpTimer, m_JumpTimer + m_JumpGracePeriod);
+        //Debug.Log("On Ground: " + onGround);
+    }
+
+    private void FixedUpdate()
+    {
         // drain stamina
-        if(m_Stamina > 0)
+        if (m_Stamina > 0 && gameManager.State == GameState.Running)
         {
             gameManager.SetStaminaMeter(m_Stamina, m_MaxStamina);
-            m_Stamina -= m_StaminaDrainSpeed * Time.deltaTime;
+            m_Stamina -= m_StaminaDrainSpeed * Time.fixedDeltaTime;
 
             if (m_Stamina <= 0)
                 gameManager.EndGame();
 
             //Debug.Log("Stamina Left: " + m_Stamina);
         }
-
-        //Debug.Log("On Ground: " + onGround);
     }
 
     private void LateUpdate()
     {
+        if (gameManager.State != GameState.Running)
+            return;
+
         CheckColliders();
 
         // check if the player has moved off the z axis and if it has, move it back

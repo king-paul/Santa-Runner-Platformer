@@ -28,6 +28,6 @@ public class PickupController : MonoBehaviour
     }
 
     public void AddPresent() { gameManager.AddPresent(); }
-    public void AddStamina(float amount) {  }
+    public void AddStamina(float amount) { player.AddStamina(amount); }
 
 }
