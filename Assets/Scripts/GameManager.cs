@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     private GameState m_State;
     private GameObject m_Player;
     private PlayerController playerController;
-    //private GuiController gui;
+    private GuiController gui;
 
     // properties
     public GameState State { get => m_State; }
@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour
             m_Player = GameObject.FindWithTag("Player");
             playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
             m_MusicSource = GameObject.FindWithTag("MainCamera").GetComponent<AudioSource>();
-            //gui = GameObject.Find("Canvas").GetComponent<GuiController>();
+            gui = GameObject.Find("Canvas").GetComponent<GuiController>();
 
             //m_LastCheckpointPos = transform.position;
 
@@ -192,6 +192,8 @@ public class GameManager : MonoBehaviour
 
             // Dead state
             case GameState.Dead:
+                gui.gameOverUI.SetActive(true);
+
                 //Debug.Log("Last Checkpoint" + m_LastCheckpointPos);
 
                 //m_MusicSource.Stop();
@@ -201,7 +203,7 @@ public class GameManager : MonoBehaviour
 
                 //gui.gameOverDistanceText.text = (int)m_Player.transform.position.x + " feet";
 
-                Globals.coins = m_coins;
+                //Globals.coins = m_coins;
                 //PlayerPrefs.SetInt("coins", m_coins);
             break;
 

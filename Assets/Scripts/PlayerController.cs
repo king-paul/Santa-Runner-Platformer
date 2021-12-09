@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-public enum PlayerState { Idle, Running, Jumping, Falling, KnockBack, IdleJump }
+public enum PlayerState { Idle, Running, Jumping, Falling, IdleJump }
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
@@ -171,14 +171,14 @@ public class PlayerController : MonoBehaviour
     private void UpdatePosition()
     {
         // Update Horizontal movement
-        if (!m_Blocked && state != PlayerState.KnockBack)
+        if (!m_Blocked)// && state != PlayerState.KnockBack)
         {            
             controller.Move(new Vector3(m_HorizontalInput * runSpeed, 0, 0) * Time.deltaTime);
         }
-        else if(state == PlayerState.KnockBack)
-        {
-            controller.Move(Vector3.left * m_KnockBackSpeed * Time.deltaTime);
-        }
+        //else if(state == PlayerState.KnockBack)
+        //{
+        //    controller.Move(Vector3.left * m_KnockBackSpeed * Time.deltaTime);
+        //}
 
         if (m_IsGrounded && moveVelocity.y < 0)
         {
@@ -276,25 +276,33 @@ public class PlayerController : MonoBehaviour
 
         // jumping -> falling
         if (state == PlayerState.Jumping && (m_CurrentVel.y <= 0))
+        if (state == PlayerState.Jumping && (m_CurrentVel.y <= 0))
         {
             state = PlayerState.Falling;
             onFall.Invoke();
         }
-        
-        if(m_Blocked && state != PlayerState.Idle && state != PlayerState.KnockBack)
+
+        if (m_Blocked && m_IsAlive) //state != PlayerState.Idle && state != PlayerState.KnockBack)
         {
+            Debug.Log("Collision with wall detected. State = " + state);
+            m_IsAlive = false;
+
             // running -> idle
             if (state == PlayerState.Running)
-            {
+            {                
                 state = PlayerState.Idle;
                 onCollisionWithWall.Invoke();
             }
             // jumping or falling -> knockback
-            else if (state != PlayerState.IdleJump)
-            {
-                state = PlayerState.KnockBack;
-            }
+            //else if (state != PlayerState.IdleJump)
+            //{
+            //    state = PlayerState.KnockBack;
+            //}
         }
+
+        // falling -> running
+        if (m_IsGrounded && state == PlayerState.Falling)
+            state = PlayerState.Running;
         
     }
     
@@ -306,7 +314,7 @@ public class PlayerController : MonoBehaviour
 
         // check if there is a collision with the ground
         if (state != PlayerState.Running && state != PlayerState.Idle
-            && (hit.gameObject.layer == LayerMask.NameToLayer("Floor")))
+            && (hit.gameObject.layer == LayerMask.NameToLayer("Level")))
         {
             //moveVelocity.y = 0;
             hasAirJumped = false;
@@ -315,7 +323,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // check if there is a collision with an obstacle
-        if (hit.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        if (hit.gameObject.layer == LayerMask.NameToLayer("Hazard"))
         {
             SetAlive(false);
             onCollisionWithHazard.Invoke();
