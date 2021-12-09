@@ -464,9 +464,9 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 847087774151380134}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Enabled: 0
+  m_Avatar: {fileID: 9000000, guid: e01c3e643461fa941b994be0e5f1f004, type: 3}
+  m_Controller: {fileID: 9100000, guid: 6ed3ed91f1f5ed24d9054a0ecf5e1956, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -679,13 +679,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469a13f844f110d4a8848573898958d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runSpeed: 10
+  m_MaxStamina: 100
+  m_StartingPercent: 100
+  m_StaminaDrainSpeed: 1
+  m_RunSpeed: 10
   m_JumpHeight: 5
   m_FallMultiplier: 2.5
   m_JumpMultiplier: 2
+  m_enableAirJump: 0
   m_AirJumpMultiplier: 4
-  m_KnockBackSpeed: 1
-  m_airJump: 0
   m_collisionLayer:
     serializedVersion: 2
     m_Bits: 256
