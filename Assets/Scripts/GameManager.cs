@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     public AudioClip m_TitleMusic;
     public AudioClip m_RunningMusic;
 
-    private int m_coins;
+    private int m_Presents;
     private bool m_GameRunning;
     [SerializeField]
     private GameState m_State;
@@ -97,7 +97,10 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Increases the number of coins collected by 1
     /// </summary>
-    public void AddCoin() { m_coins++; }
+    public void AddPresent() { 
+        m_Presents++;
+        gui.presentsCount.text = m_Presents.ToString();
+    }
 
     void Awake()
     {
@@ -122,7 +125,7 @@ public class GameManager : MonoBehaviour
             // Set game state
             //UpdateGameState(GameState.Idle);
             m_GameRunning = true;
-            m_coins = 0;
+            m_Presents = 0;
 
             // Set music to title music
             m_MusicSource.clip = m_TitleMusic;
@@ -176,7 +179,6 @@ public class GameManager : MonoBehaviour
             case GameState.Running:
                 //m_Player.transform.position = m_LastCheckpointPos;
                 m_Player.GetComponent<CharacterController>().enabled = true;
-                m_coins = Globals.coins;
 
                 //gui.titleScreen.SetActive(false);
 
@@ -218,9 +220,14 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="jumpForce">the jump force applied</param>
     /// <param name="maxJumpForce">the maximim jump force that the player can apply</param>
-    public void SetJumpMeter(float jumpForce, float maxJumpForce)
-    {
+    //public void SetJumpMeter(float jumpForce, float maxJumpForce)
+    //{
         //gui.SetJumpMeter(jumpForce, maxJumpForce);
+    //}
+
+    public void SetStaminaMeter(float curStamina, float maxStamina)
+    {
+        gui.SetStaminaMeter(curStamina, maxStamina);
     }
 
     /// <summary>

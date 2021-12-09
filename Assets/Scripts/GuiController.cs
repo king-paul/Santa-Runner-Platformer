@@ -19,7 +19,7 @@ public class GuiController : MonoBehaviour
     private TextMeshProUGUI[] continueText;
 
     private float maxBarHeight = 0;
-    private float maxBarWidth = 10;
+    private float maxBarWidth;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +30,8 @@ public class GuiController : MonoBehaviour
             HUD.SetActive(false);
         }
         gameOverUI.SetActive(false);
+
+        maxBarWidth = staminaMeter.rect.width;
     }
 
     /// <summary>

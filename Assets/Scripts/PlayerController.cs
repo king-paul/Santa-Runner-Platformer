@@ -14,16 +14,30 @@ public enum PlayerState { Idle, Running, Jumping, Falling, IdleJump }
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
-    // public cariables
-    [Header("Movement Variables")]
+    #region declaration block
+    [Header("Stamina")]
+    [Range(10, 200)]
+    [SerializeField] float m_MaxStamina = 100;
+    [Range(1, 100)]
+    [SerializeField] float m_StartingPercent = 100;
+    [Range(0.1f, 10)]
+    [SerializeField] float m_StaminaDrainSpeed = 1f;
 
-    public float runSpeed = 10.0f;
+    // public cariables
+    [Header("Movement")]
+    [Range(1, 20)]
+    public float m_RunSpeed = 10.0f;
+    [Range(1, 10)]
     public float m_JumpHeight = 5.0f;
+    [Range(1, 10)]
     public float m_FallMultiplier = 2.5f;
+    [Range(1, 10)]
     public float m_JumpMultiplier = 2f;
+    public bool m_enableAirJump = false;
+    [Range(1, 10)]
     public float m_AirJumpMultiplier = 4f;
-    public float m_KnockBackSpeed = 1f;
-    public bool m_airJump = false;
+    //public float m_KnockBackSpeed = 1f;
+    
 
     // serialized private values
     [Header("Collision Checkers")]
@@ -31,7 +45,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform[] m_GroundChecks = null;
     [SerializeField] private Transform[] m_WallChecks = null;
 
+    [Header("Events")]
+    public UnityEvent onBegin;
+    public UnityEvent onJump, onAirJump, onFall, onLand, onCollisionWithWall, onCollisionWithHazard,
+        onFallOffLevel, onPresentCollect, onFoodCollect;
+
     // private variables
+    private float m_Stamina;
     private bool m_JumpPressed;
     private float m_JumpTimer;
     private float m_JumpGracePeriod = 0.2f;
@@ -51,13 +71,9 @@ public class PlayerController : MonoBehaviour
     Touch touchInput;
 
     bool hasAirJumped;
+    #endregion
 
-    [Header("Events")]
-    public UnityEvent onBegin;
-    public UnityEvent onJump, onAirJump, onFall, onLand, onCollisionWithWall, onCollisionWithHazard, 
-        onFallOffLevel, onPresentCollect, onFoodCollect;
-
-    // Properties //
+    #region public properties and functions
 
     /// <summary>
     /// Returns true or false depending on whether or not the player is on the ground
@@ -78,6 +94,14 @@ public class PlayerController : MonoBehaviour
     // Functions //
     public void SetAlive(bool _state) { m_IsAlive = _state; }
     public void StartRunning() { state = PlayerState.Running; }
+    public void AddStamina(float amount) {
+        m_Stamina += amount;
+
+        if (m_Stamina > m_MaxStamina)
+            m_Stamina = m_MaxStamina;
+    }
+
+    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -85,6 +109,7 @@ public class PlayerController : MonoBehaviour
         // try/catch block
         try
         {
+            m_Stamina = m_MaxStamina / 100 * m_StartingPercent;
             controller = GetComponent<CharacterController>();
             gameManager = GameManager.m_Instance;
             //onGround = true;
@@ -114,7 +139,18 @@ public class PlayerController : MonoBehaviour
         UpdatePosition();
         UpdateState();
 
-        gameManager.SetJumpMeter(m_JumpTimer, m_JumpTimer + m_JumpGracePeriod);
+        //gameManager.SetJumpMeter(m_JumpTimer, m_JumpTimer + m_JumpGracePeriod);
+        // drain stamina
+        if(m_Stamina > 0)
+        {
+            gameManager.SetStaminaMeter(m_Stamina, m_MaxStamina);
+            m_Stamina -= m_StaminaDrainSpeed * Time.deltaTime;
+
+            if (m_Stamina <= 0)
+                gameManager.EndGame();
+
+            //Debug.Log("Stamina Left: " + m_Stamina);
+        }
 
         //Debug.Log("On Ground: " + onGround);
     }
@@ -173,7 +209,7 @@ public class PlayerController : MonoBehaviour
         // Update Horizontal movement
         if (!m_Blocked)// && state != PlayerState.KnockBack)
         {            
-            controller.Move(new Vector3(m_HorizontalInput * runSpeed, 0, 0) * Time.deltaTime);
+            controller.Move(new Vector3(m_HorizontalInput * m_RunSpeed, 0, 0) * Time.deltaTime);
         }
         //else if(state == PlayerState.KnockBack)
         //{
@@ -201,7 +237,7 @@ public class PlayerController : MonoBehaviour
         if (m_JumpPressed || (m_JumpTimer > 0 && Time.time < m_JumpTimer + m_JumpGracePeriod))
         {
             // ground jump
-            if (m_IsGrounded || (m_airJump && !hasAirJumped))
+            if (m_IsGrounded || (m_enableAirJump && !hasAirJumped))
             {
                 if (m_IsGrounded)
                 {
@@ -212,7 +248,7 @@ public class PlayerController : MonoBehaviour
 
                     onJump.Invoke();
                 }
-                else if(m_airJump)
+                else if(m_enableAirJump)
                 {
                     onAirJump.Invoke();
                     hasAirJumped = true;
@@ -340,11 +376,11 @@ public class PlayerController : MonoBehaviour
 
         switch(other.tag)
         {
-            case "Food":
-                Destroy(other.gameObject);
-                onFoodCollect.Invoke();
-                gameManager.AddCoin();
-                break;
+            //case "Collectable":
+            //    Destroy(other.gameObject);
+            //    onFoodCollect.Invoke();
+            //    gameManager.AddCoin();
+            //break;
 
             case "KillBox": case "KillZone":
                 gameManager.UpdateGameState(GameState.Dead);

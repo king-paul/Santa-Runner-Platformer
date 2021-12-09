@@ -18,6 +18,7 @@ public class PlayerSound : MonoBehaviour
     public AudioClip fallSound;
     public AudioClip collectSound;
 
+
     // audio source objects
     private AudioSource playerAudio;
     private AudioSource footsteps;
