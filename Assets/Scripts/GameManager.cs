@@ -21,14 +21,12 @@ public class GameManager : MonoBehaviour
     private AudioSource m_MusicSource;
 
     [Header("Game Objects")]
-    //public Canvas m_Canvas;
-    public GameObject m_Arrows;
     public Transform m_StartingPoint;
 
     [Header("Variables")]
     [SerializeField] private float m_Gravity = -9.8f;
-    [SerializeField] int continueCost = 10;
-    public Vector3 m_LastCheckpointPos;    
+    //[SerializeField] int continueCost = 10;
+    //public Vector3 m_LastCheckpointPos;    
 
     [Header("Music")]
     public AudioClip m_TitleMusic;
@@ -36,10 +34,11 @@ public class GameManager : MonoBehaviour
 
     private int m_coins;
     private bool m_GameRunning;
+    [SerializeField]
     private GameState m_State;
     private GameObject m_Player;
     private PlayerController playerController;
-    private GuiController gui;
+    //private GuiController gui;
 
     // properties
     public GameState State { get => m_State; }
@@ -59,7 +58,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public Vector3 LastCheckpointPos
     {
-        get => m_LastCheckpointPos;
+        //get => m_LastCheckpointPos;
         set => LastCheckpointPos = value;
     }    
 
@@ -81,10 +80,10 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         // set the last checkpoint to the start of the level
-        m_LastCheckpointPos = new Vector3(m_StartingPoint.position.x,
-            m_StartingPoint.position.y, 0);
+        //m_LastCheckpointPos = new Vector3(m_StartingPoint.position.x,
+            //m_StartingPoint.position.y, 0);
 
-        UpdateGameState(GameState.Idle);
+        //UpdateGameState(GameState.Idle);
     }
 
     /// <summary>
@@ -113,15 +112,15 @@ public class GameManager : MonoBehaviour
             m_Player = GameObject.FindWithTag("Player");
             playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
             m_MusicSource = GameObject.FindWithTag("MainCamera").GetComponent<AudioSource>();
-            gui = GameObject.FindWithTag("Canvas").GetComponent<GuiController>();
+            //gui = GameObject.Find("Canvas").GetComponent<GuiController>();
 
-            m_LastCheckpointPos = transform.position;
+            //m_LastCheckpointPos = transform.position;
 
             // Set ui values
-            gui.SetJumpMeter(0, 0);
+            //gui.SetJumpMeter(0, 0);
 
             // Set game state
-            UpdateGameState(GameState.Idle);
+            //UpdateGameState(GameState.Idle);
             m_GameRunning = true;
             m_coins = 0;
 
@@ -142,8 +141,8 @@ public class GameManager : MonoBehaviour
         // Running
         if (m_State == GameState.Running)
         {
-            gui.distanceText.text = ((int)m_Player.transform.position.x).ToString();
-            gui.coinText.text = m_coins.ToString();
+            //gui.distanceText.text = ((int)m_Player.transform.position.x).ToString();
+            //gui.coinText.text = m_coins.ToString();
         }
 
         // Quit the game when ESC is pressed
@@ -168,22 +167,22 @@ public class GameManager : MonoBehaviour
         {
             // Idle State
             case GameState.Idle:                
-                gui.titleScreen.SetActive(true);
+                //gui.titleScreen.SetActive(true);
                 //m_Player.transform.position = m_LastCheckpointPos;
-                gui.gameOverUI.SetActive(false);                
+                //gui.gameOverUI.SetActive(false);                
             break;
 
             // Running State
             case GameState.Running:
-                m_Player.transform.position = m_LastCheckpointPos;
+                //m_Player.transform.position = m_LastCheckpointPos;
                 m_Player.GetComponent<CharacterController>().enabled = true;
                 m_coins = Globals.coins;
 
-                gui.titleScreen.SetActive(false);
+                //gui.titleScreen.SetActive(false);
 
-                gui.titleScreen.SetActive(false);
-                gui.gameOverUI.SetActive(false);
-                gui.HUD.SetActive(true);
+                //gui.titleScreen.SetActive(false);
+                //gui.gameOverUI.SetActive(false);
+                //gui.HUD.SetActive(true);
 
                 m_MusicSource.clip = m_RunningMusic;
                 m_MusicSource.Play();
@@ -193,14 +192,14 @@ public class GameManager : MonoBehaviour
 
             // Dead state
             case GameState.Dead:
-                Debug.Log("Last Checkpoint" + m_LastCheckpointPos);
+                //Debug.Log("Last Checkpoint" + m_LastCheckpointPos);
 
                 //m_MusicSource.Stop();
 
-                gui.HUD.SetActive(false);
-                gui.ShowGameOverScreen(m_coins, continueCost);
+                //gui.HUD.SetActive(false);
+                //gui.ShowGameOverScreen(m_coins, continueCost);
 
-                gui.gameOverDistanceText.text = (int)m_Player.transform.position.x + " feet";
+                //gui.gameOverDistanceText.text = (int)m_Player.transform.position.x + " feet";
 
                 Globals.coins = m_coins;
                 //PlayerPrefs.SetInt("coins", m_coins);
@@ -219,21 +218,21 @@ public class GameManager : MonoBehaviour
     /// <param name="maxJumpForce">the maximim jump force that the player can apply</param>
     public void SetJumpMeter(float jumpForce, float maxJumpForce)
     {
-        gui.SetJumpMeter(jumpForce, maxJumpForce);
+        //gui.SetJumpMeter(jumpForce, maxJumpForce);
     }
 
     /// <summary>
     /// Teleports the player back to the last checkpoint passed and
     /// changes the game state to Running
     /// </summary>
-    public void ContinueFromCheckpoint()
-    {
-        if(m_coins >= continueCost)
-        {
-            m_coins -= continueCost;
-            Globals.coins = m_coins;
-            UpdateGameState(GameState.Running);
-        }
-    }
+    //public void ContinueFromCheckpoint()
+    //{
+    //    if(m_coins >= continueCost)
+    //    {
+    //        m_coins -= continueCost;
+    //        Globals.coins = m_coins;
+    //        UpdateGameState(GameState.Running);
+    //    }
+    //}
 
 }

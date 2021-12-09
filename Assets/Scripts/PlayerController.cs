@@ -27,8 +27,7 @@ public class PlayerController : MonoBehaviour
 
     // serialized private values
     [Header("Collision Checkers")]
-    [SerializeField] private LayerMask m_GroundLayers = default;
-    [SerializeField] private LayerMask m_WallLayers = default;
+    [SerializeField] LayerMask m_collisionLayer = 8;
     [SerializeField] private Transform[] m_GroundChecks = null;
     [SerializeField] private Transform[] m_WallChecks = null;
 
@@ -91,7 +90,8 @@ public class PlayerController : MonoBehaviour
             //onGround = true;
             SetAlive(true);
 
-            state = PlayerState.Idle;
+            //state = PlayerState.Idle;
+            StartRunning();
             hasAirJumped = false;
         }
         catch (Exception e)
@@ -143,8 +143,7 @@ public class PlayerController : MonoBehaviour
         m_IsGrounded = false;
         foreach (var groundCheck in m_GroundChecks)
         {
-            if (Physics.CheckSphere(groundCheck.position, 0.1f, m_GroundLayers,
-                QueryTriggerInteraction.Ignore))
+            if (Physics.CheckSphere(groundCheck.position, 0.1f, m_collisionLayer))
             {
                 m_IsGrounded = true;
             }
@@ -155,8 +154,7 @@ public class PlayerController : MonoBehaviour
             // wall checks        
             foreach (var wallCheck in m_WallChecks)
             {
-                if (Physics.CheckSphere(wallCheck.position, 0.1f, m_WallLayers,
-                    QueryTriggerInteraction.Ignore))
+                if (Physics.CheckSphere(wallCheck.position, 0.1f, m_collisionLayer))
                 {
                     m_Blocked = true;
                     return;
@@ -308,8 +306,7 @@ public class PlayerController : MonoBehaviour
 
         // check if there is a collision with the ground
         if (state != PlayerState.Running && state != PlayerState.Idle
-            && (hit.gameObject.CompareTag("Ground") ||
-            hit.gameObject.CompareTag("Platform")) || hit.gameObject.CompareTag("Floor"))
+            && (hit.gameObject.layer == LayerMask.NameToLayer("Floor")))
         {
             //moveVelocity.y = 0;
             hasAirJumped = false;
@@ -318,8 +315,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // check if there is a collision with an obstacle
-        if (hit.gameObject.CompareTag("Obstacle") || hit.gameObject.CompareTag("Hazard") ||
-            hit.gameObject.CompareTag("Arrow"))
+        if (hit.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
             SetAlive(false);
             onCollisionWithHazard.Invoke();
