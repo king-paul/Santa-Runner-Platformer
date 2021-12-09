@@ -580,10 +580,7 @@ MonoBehaviour:
   m_AirJumpMultiplier: 4
   m_KnockBackSpeed: 1
   m_airJump: 0
-  m_GroundLayers:
-    serializedVersion: 2
-    m_Bits: 256
-  m_WallLayers:
+  m_collisionLayer:
     serializedVersion: 2
     m_Bits: 256
   m_GroundChecks:
