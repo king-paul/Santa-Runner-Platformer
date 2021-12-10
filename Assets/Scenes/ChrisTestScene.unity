@@ -424,7 +424,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 0.9764151, g: 0.9956078, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -495,34 +495,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1711397305, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 847087774151380131, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
-      propertyPath: m_RunSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 847087774151380131, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
-      propertyPath: m_FallMultiplier
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 847087774151380131, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
-      propertyPath: m_JumpMultiplier
-      value: 3.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 847087774151380131, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
-      propertyPath: playerCamera
-      value: 
-      objectReference: {fileID: 1743571715}
-    - target: {fileID: 847087774151380131, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
-      propertyPath: m_SlidingHeight
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 847087774151380131, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
-      propertyPath: m_SlidingCenter.y
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 847087774151380134, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
       propertyPath: m_Name
       value: Player
@@ -573,11 +545,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
---- !u!4 &1743571715 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7373093031700741940, guid: a41f9f5e87176944484c901a08f2de5c, type: 3}
-  m_PrefabInstance: {fileID: 7373093031215559735}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1887665043
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1422,18 +1389,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 462972747}
-    - target: {fileID: 7373093031700741939, guid: a41f9f5e87176944484c901a08f2de5c, type: 3}
-      propertyPath: offset.x
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7373093031700741939, guid: a41f9f5e87176944484c901a08f2de5c, type: 3}
-      propertyPath: offset.y
-      value: 2.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 7373093031700741939, guid: a41f9f5e87176944484c901a08f2de5c, type: 3}
-      propertyPath: maxFallDistance
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 7373093031700741940, guid: a41f9f5e87176944484c901a08f2de5c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2
