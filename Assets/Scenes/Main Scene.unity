@@ -195,6 +195,14 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1709914491}
+    - target: {fileID: 188186201, guid: a41f9f5e87176944484c901a08f2de5c, type: 3}
+      propertyPath: offset.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 188186201, guid: a41f9f5e87176944484c901a08f2de5c, type: 3}
+      propertyPath: maxFallDistance
+      value: -0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7373093031700741832, guid: a41f9f5e87176944484c901a08f2de5c, type: 3}
       propertyPath: m_Name
       value: Camera
@@ -529,6 +537,30 @@ PrefabInstance:
       propertyPath: onCollisionWithWall.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 995688386}
+    - target: {fileID: 847087774151380132, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
+      propertyPath: jumpSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 4c7098200d540f4439b107c7299a9ba9, type: 3}
+    - target: {fileID: 847087774151380132, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
+      propertyPath: fallSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 2366327dabf8230449418c67c2bc45f1, type: 3}
+    - target: {fileID: 847087774151380132, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
+      propertyPath: landSound
+      value: 
+      objectReference: {fileID: 8300000, guid: e223f492407ad7e4795ca2181c4d4519, type: 3}
+    - target: {fileID: 847087774151380132, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
+      propertyPath: hazardSound
+      value: 
+      objectReference: {fileID: 8300000, guid: e95f5a69fe9f34148bc7b5f5faacfbd7, type: 3}
+    - target: {fileID: 847087774151380132, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
+      propertyPath: collideSound
+      value: 
+      objectReference: {fileID: 8300000, guid: e95f5a69fe9f34148bc7b5f5faacfbd7, type: 3}
+    - target: {fileID: 847087774151380132, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
+      propertyPath: collectSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 1c0d7a8bf0984b24392f4015ccee87e4, type: 3}
     - target: {fileID: 847087774151380134, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
       propertyPath: m_Name
       value: Player
