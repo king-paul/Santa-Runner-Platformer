@@ -501,7 +501,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 847087774151380131, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
       propertyPath: m_RunSpeed
-      value: 7.5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 847087774151380131, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
       propertyPath: m_FallMultiplier
@@ -518,6 +518,10 @@ PrefabInstance:
     - target: {fileID: 847087774151380131, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
       propertyPath: m_SlidingHeight
       value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 847087774151380131, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
+      propertyPath: m_SlidingCenter.y
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 847087774151380134, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
       propertyPath: m_Name
@@ -631,7 +635,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4024908268363090508, guid: 59a24e125f190e14ebaea0110e722705, type: 3}
       propertyPath: m_State
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59a24e125f190e14ebaea0110e722705, type: 3}
@@ -1418,6 +1422,18 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 462972747}
+    - target: {fileID: 7373093031700741939, guid: a41f9f5e87176944484c901a08f2de5c, type: 3}
+      propertyPath: offset.x
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7373093031700741939, guid: a41f9f5e87176944484c901a08f2de5c, type: 3}
+      propertyPath: offset.y
+      value: 2.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7373093031700741939, guid: a41f9f5e87176944484c901a08f2de5c, type: 3}
+      propertyPath: maxFallDistance
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 7373093031700741940, guid: a41f9f5e87176944484c901a08f2de5c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2
