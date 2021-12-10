@@ -1158,7 +1158,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 847087774151380129, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 847087774151380129, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
       propertyPath: m_Controller
@@ -1187,6 +1187,10 @@ PrefabInstance:
     - target: {fileID: 847087774151380131, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 847087774151380131, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
+      propertyPath: m_StandingCenter.y
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 847087774151380132, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
       propertyPath: m_Enabled
@@ -1255,6 +1259,10 @@ PrefabInstance:
     - target: {fileID: 7269976704146636238, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7572657047152840104, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.13
       objectReference: {fileID: 0}
     - target: {fileID: 7997112713663253337, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
       propertyPath: m_LocalPosition.y
