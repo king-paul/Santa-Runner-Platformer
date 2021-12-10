@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1605453643302604227}
   - component: {fileID: 956816893141265431}
   - component: {fileID: 956816893141265428}
+  - component: {fileID: -7511340438144371908}
   m_Layer: 9
   m_Name: Cookie
   m_TagString: Untagged
@@ -124,3 +125,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5540859, y: 0.55408585, z: 0.07072982}
   m_Center: {x: 0, y: -0.000000014901161, z: 0.0000000018626451}
+--- !u!114 &-7511340438144371908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 956816893141265430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1872cbf5bcf3e564a9da3a57250b745f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spinSpeed: {x: 0, y: 1, z: 0}
+  reverseDirection: 0

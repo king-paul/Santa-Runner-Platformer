@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6762298482155934280}
   - component: {fileID: 9218732690751767057}
   - component: {fileID: 9195142163990590714}
+  - component: {fileID: -7504994439424471560}
   m_Layer: 9
   m_Name: Candy Cane
   m_TagString: Food
@@ -124,3 +125,17 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   collectSound: {fileID: 0}
+--- !u!114 &-7504994439424471560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5104969627037791133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1872cbf5bcf3e564a9da3a57250b745f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spinSpeed: {x: 0, y: 1, z: 0}
+  reverseDirection: 0

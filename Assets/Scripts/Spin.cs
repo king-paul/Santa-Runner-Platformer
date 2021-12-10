@@ -6,23 +6,22 @@ using UnityEngine;
 
 public class Spin : MonoBehaviour
 {
-    public float spinSpeed = 0.5f;
-    private float angle;
+    //public float spinSpeed = 0.5f;
+    public Vector3 spinSpeed = new Vector3(0, 5f, 0);
+    public bool reverseDirection;
 
     // Start is called before the first frame update
     void Start()
     {
-        angle = 0;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        angle += spinSpeed;
-
-        if (angle >= 360)
-            angle = 0;
-
-        transform.rotation = Quaternion.Euler(0, angle, 0);
+        if(reverseDirection)
+            transform.Rotate(-spinSpeed);
+        else
+            transform.Rotate(spinSpeed);
     }
 }
