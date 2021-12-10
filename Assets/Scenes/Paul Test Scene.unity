@@ -568,6 +568,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Candy Cane (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5104969627037791133, guid: b97d2dddb3a65a54a91254e4df9898b7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5590003395098224935, guid: b97d2dddb3a65a54a91254e4df9898b7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 30.54
@@ -676,17 +680,101 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0acbb0140029334e80dabd7fe67d7af, type: 3}
---- !u!114 &970143264 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4024908268363090508, guid: 59a24e125f190e14ebaea0110e722705, type: 3}
-  m_PrefabInstance: {fileID: 3718887177164854647}
+--- !u!1 &1137221475
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1137221479}
+  - component: {fileID: 1137221478}
+  - component: {fileID: 1137221477}
+  - component: {fileID: 1137221476}
+  m_Layer: 8
+  m_Name: Cube (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1137221476
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137221475}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a952b02f261b5a842905afc4258a542c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1137221477
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137221475}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1137221478
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137221475}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1137221479
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137221475}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 120.496, y: -3.17, z: 0}
+  m_LocalScale: {x: 134.30452, y: 6.2269235, z: 3.6358}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1215789021
 GameObject:
   m_ObjectHideFlags: 0
@@ -1169,14 +1257,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 847087774151380131, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
-      propertyPath: onCollisionWithWall.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 970143264}
-    - target: {fileID: 847087774151380131, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
-      propertyPath: onFallOffLevel.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 970143264}
     - target: {fileID: 847087774151380134, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1237,6 +1317,10 @@ PrefabInstance:
     - target: {fileID: 5104969627037791133, guid: b97d2dddb3a65a54a91254e4df9898b7, type: 3}
       propertyPath: m_Name
       value: Candy Cane (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5104969627037791133, guid: b97d2dddb3a65a54a91254e4df9898b7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5590003395098224935, guid: b97d2dddb3a65a54a91254e4df9898b7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1442,7 +1526,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4485978708517267616, guid: 15b0bdffc878ef44fab6318daf04021b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4485978708517267617, guid: 15b0bdffc878ef44fab6318daf04021b, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1460,6 +1544,10 @@ PrefabInstance:
     - target: {fileID: 5104969627037791133, guid: b97d2dddb3a65a54a91254e4df9898b7, type: 3}
       propertyPath: m_Name
       value: Candy Cane
+      objectReference: {fileID: 0}
+    - target: {fileID: 5104969627037791133, guid: b97d2dddb3a65a54a91254e4df9898b7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5590003395098224935, guid: b97d2dddb3a65a54a91254e4df9898b7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1561,6 +1649,10 @@ PrefabInstance:
     - target: {fileID: 956816893141265430, guid: 2c204b6a283e8494984b96e2ab4a53e1, type: 3}
       propertyPath: m_Name
       value: Cookie
+      objectReference: {fileID: 0}
+    - target: {fileID: 956816893141265430, guid: 2c204b6a283e8494984b96e2ab4a53e1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c204b6a283e8494984b96e2ab4a53e1, type: 3}

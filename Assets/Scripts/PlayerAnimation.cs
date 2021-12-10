@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
 public class PlayerAnimation : MonoBehaviour
 {
     // member variables
@@ -15,7 +14,7 @@ public class PlayerAnimation : MonoBehaviour
 
     void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         player = GetComponent<PlayerController>();
         gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
     }
@@ -38,12 +37,17 @@ public class PlayerAnimation : MonoBehaviour
         animator.SetTrigger(trigger);
     }
 
+    public void SetStamina(float curStamina)
+    {
+        animator.SetFloat("Stamina", curStamina);
+    }
+
     /// <summary>
     /// Sets all the parameters needed to transition to the running animation
     /// </summary>
     public void PlayRunningAnimation()
     {
-        animator.SetBool("GameRunning", true);
+       // animator.SetBool("GameRunning", true);
         animator.SetBool("WallCollision", false);
         animator.SetBool("Grounded", true);
 
@@ -53,12 +57,12 @@ public class PlayerAnimation : MonoBehaviour
     /// <summary>
     /// Sets all the parameters needed to transition to the dead animation
     /// </summary>
-    public void PlayDeadAnimation()
+    public void PlayCollisionAnimation()
     {
         // play death animation once
-        animator.SetTrigger("Die");
+        animator.SetTrigger("Collision");        
         //animator.SetBool("alive", false);
-        animator.SetBool("GameRunning", false);
+        //animator.SetBool("GameRunning", false);
         falling = false;
     }
 
@@ -68,7 +72,7 @@ public class PlayerAnimation : MonoBehaviour
     public void PlayJumpSequence()
     {
         animator.SetTrigger("Jump");
-        animator.SetBool("HighJump", false);
+        animator.SetBool("Grounded", false);
         falling = true;
     }
 
