@@ -211,7 +211,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 188186201, guid: a41f9f5e87176944484c901a08f2de5c, type: 3}
       propertyPath: maxFallDistance
-      value: -1
+      value: -0.9
       objectReference: {fileID: 0}
     - target: {fileID: 188186201, guid: a41f9f5e87176944484c901a08f2de5c, type: 3}
       propertyPath: offset.y
