@@ -59,7 +59,9 @@ public class PlayerSound : MonoBehaviour
     public void PlayJumpSound(float volumeScale = 1.0f)
     {
         footsteps.Stop();
-        playerAudio.PlayOneShot(jumpSound, volumeScale);
+
+        if(jumpSound != null)
+            playerAudio.PlayOneShot(jumpSound, volumeScale);
     }
 
     /// <summary>
@@ -69,7 +71,9 @@ public class PlayerSound : MonoBehaviour
     public void PlayDoubleJumpSound(float volumeScale = 1.0f)
     {
         footsteps.Stop();
-        playerAudio.PlayOneShot(doubleJumpSound, volumeScale);
+
+        if (doubleJumpSound != null)
+            playerAudio.PlayOneShot(doubleJumpSound, volumeScale);
     }
 
     /// <summary>
@@ -79,7 +83,9 @@ public class PlayerSound : MonoBehaviour
     public void PlayLandSound(float volumeScale = 1.0f)
     {
         footsteps.Stop();
-        playerAudio.PlayOneShot(landSound, volumeScale);
+
+        if(landSound != null)
+            playerAudio.PlayOneShot(landSound, volumeScale);
     }
 
     /// <summary>
@@ -89,7 +95,8 @@ public class PlayerSound : MonoBehaviour
     public void PlayCollideSound(float volumeScale = 1.0f)
     {
         footsteps.Stop();
-        playerAudio.PlayOneShot(collideSound, volumeScale);
+        if (collideSound != null)
+            playerAudio.PlayOneShot(collideSound, volumeScale);
     }
 
     /// <summary>
@@ -109,7 +116,8 @@ public class PlayerSound : MonoBehaviour
     public void PlayFallSound(float volumeScale = 1.0f)
     {
         footsteps.Stop();
-        playerAudio.PlayOneShot(fallSound, volumeScale);
+        if (fallSound != null)
+            playerAudio.PlayOneShot(fallSound, volumeScale);
     }
 
     /// <summary>
@@ -119,12 +127,14 @@ public class PlayerSound : MonoBehaviour
     public void PlayCollectSound(float volumeScale = 1.0f)
     {
         footsteps.Stop();
-        playerAudio.PlayOneShot(collectSound, volumeScale);
+        if (collectSound != null)
+            playerAudio.PlayOneShot(collectSound, volumeScale);
     }
 
     public void PlaySlideSound(float volumeScale = 1.0f)
     {
-        playerAudio.PlayOneShot(slideSound, volumeScale);
+        if (slideSound != null)
+            playerAudio.PlayOneShot(slideSound, volumeScale);
     }
 
 }
