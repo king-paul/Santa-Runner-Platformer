@@ -449,13 +449,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2.39
-  m_Radius: 0.51
+  m_Height: 2.3
+  m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: -0.01, y: 0.24, z: 0}
+  m_MinMoveDistance: 0
+  m_Center: {x: 0, y: 0.2, z: 0}
 --- !u!95 &847087774151380129
 Animator:
   serializedVersion: 3
@@ -681,10 +681,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MaxStamina: 100
   m_StartingPercent: 100
-  m_StaminaDrainSpeed: 1
-  m_RunSpeed: 10
+  m_StaminaDrainSpeed: 5
+  m_RunSpeed: 5
   m_JumpHeight: 5
-  m_FallMultiplier: 2.5
+  m_FallMultiplier: 8.16
   m_JumpMultiplier: 2
   m_enableAirJump: 0
   m_AirJumpMultiplier: 4
@@ -696,11 +696,12 @@ MonoBehaviour:
   - {fileID: 5740211002501411851}
   - {fileID: 7529166289308215179}
   - {fileID: 9022106515609799874}
-  m_WallChecks:
-  - {fileID: 6901410034854956207}
-  - {fileID: 6571968182575689757}
-  - {fileID: 7328163235081089069}
+  m_UpperWallChecks:
   - {fileID: 6901410036705086196}
+  - {fileID: 6901410034854956207}
+  m_LowerWallChecks:
+  - {fileID: 7328163235081089069}
+  - {fileID: 6571968182575689757}
   onBegin:
     m_PersistentCalls:
       m_Calls: []
@@ -718,13 +719,37 @@ MonoBehaviour:
       m_Calls: []
   onCollisionWithWall:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: EndGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onCollisionWithHazard:
     m_PersistentCalls:
       m_Calls: []
   onFallOffLevel:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: EndGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onPresentCollect:
     m_PersistentCalls:
       m_Calls: []
@@ -1245,7 +1270,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6571968182575689757}
   m_Layer: 0
-  m_Name: LeftCheck2
+  m_Name: LowerLeft
   m_TagString: Untagged
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1336,7 +1361,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7328163235081089069}
   m_Layer: 0
-  m_Name: RightCheck1
+  m_Name: LowerRight
   m_TagString: Untagged
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1354,7 +1379,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9091579686154093717}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3757579885583752629
 GameObject:
@@ -2295,7 +2320,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6901410034854956207}
   m_Layer: 0
-  m_Name: LeftCheck1
+  m_Name: UpperLeft
   m_TagString: Untagged
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2309,11 +2334,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6901410034854956206}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.3, z: -0.285}
+  m_LocalPosition: {x: 0, y: 0.924, z: -0.285}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9091579686154093717}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6901410036705086199
 GameObject:
@@ -2325,7 +2350,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6901410036705086196}
   m_Layer: 0
-  m_Name: RightCheck2
+  m_Name: UpperRight
   m_TagString: Untagged
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2339,7 +2364,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6901410036705086199}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.3, z: 0.75}
+  m_LocalPosition: {x: 0, y: 0.924, z: 0.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9091579686154093717}
@@ -2626,7 +2651,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8731892408157134470}
   m_Layer: 0
-  m_Name: SK_Santa
+  m_Name: Santa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2676,8 +2701,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6901410036705086196}
-  - {fileID: 7328163235081089069}
   - {fileID: 6901410034854956207}
+  - {fileID: 7328163235081089069}
   - {fileID: 6571968182575689757}
   m_Father: {fileID: 1978417181250270335}
   m_RootOrder: 1
