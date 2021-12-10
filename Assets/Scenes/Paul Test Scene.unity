@@ -1169,14 +1169,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 847087774151380129, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 847087774151380131, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
-      propertyPath: playerCamera
-      value: 
-      objectReference: {fileID: 1827976963}
     - target: {fileID: 847087774151380131, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
       propertyPath: onCollisionWithWall.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1195,7 +1187,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 847087774151380140, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.895
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 847087774151380140, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
       propertyPath: m_LocalPosition.z
