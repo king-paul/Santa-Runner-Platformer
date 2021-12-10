@@ -110,8 +110,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         // Find gameobjects
-        try
-        {
+        //try
+        //{
             m_Player = GameObject.FindWithTag("Player");
             playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
             m_MusicSource = GameObject.FindWithTag("MainCamera").GetComponent<AudioSource>();
@@ -128,14 +128,18 @@ public class GameManager : MonoBehaviour
             m_Presents = 0;
 
             // Set music to title music
-            m_MusicSource.clip = m_TitleMusic;
-            m_MusicSource.Play();
+            if (m_MusicSource != null && m_TitleMusic != null)
+            {
+                m_MusicSource.clip = m_TitleMusic;
+                m_MusicSource.Play();
+            }
+        
 
-        }
-        catch (NullReferenceException e)
-        {
-            Debug.LogError("Exception on GameManager: " + e.Message);
-        }
+        //}
+        //catch (NullReferenceException e)
+        //{
+        //    Debug.LogError("Exception on GameManager: " + e.Message);
+        //}
     }
 
     // Update is called once per frame
@@ -189,7 +193,7 @@ public class GameManager : MonoBehaviour
                 m_MusicSource.clip = m_RunningMusic;
                 m_MusicSource.Play();
 
-                playerController.onBegin.Invoke();
+                //playerController.onBegin.Invoke();
             break;
 
             // Dead state
