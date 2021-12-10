@@ -15,6 +15,8 @@ public enum PlayerState { Idle, Running, Jumping, Falling, Sliding, IdleJump }
 public class PlayerController : MonoBehaviour
 {
     #region declaration block
+    public Transform playerCamera;
+
     [Header("Stamina")]
     [Range(10, 200)]
     [SerializeField] float m_MaxStamina = 100;
@@ -36,7 +38,17 @@ public class PlayerController : MonoBehaviour
     public bool m_enableAirJump = false;
     [Range(1, 10)]
     public float m_AirJumpMultiplier = 4f;
-    //public float m_KnockBackSpeed = 1f;    
+    //public float m_KnockBackSpeed = 1f;
+
+    [Header("Normal Values")]
+    [Header("Collider Adjustments")]    
+    public Vector3 m_StandingCenter = new Vector3(0, 0.21f, 0);
+    public float m_StandingRadius = 0.5f;
+    public float m_StandingHeight = 2.3f;
+    [Header("Sliding Values")]
+    public Vector3 m_SlidingCenter = new Vector3(0, -0.5f, 0);
+    public float m_SlidingRadius = 0.5f;
+    public float m_SlidingHeight = 1f;
 
     // serialized private values
     [Header("Collision Checkers")]
@@ -114,13 +126,16 @@ public class PlayerController : MonoBehaviour
         gameManager = GameManager.m_Instance;
         //onGround = true;
         SetAlive(true);
-
-        //state = PlayerState.Idle;
+        
         StartRunning();
         hasAirJumped = false;
-
         santaModel = transform.Find("Santa");
 
+        // set default angle and standing collider position
+        santaModel.rotation = Quaternion.Euler(0, 90, 0);
+        controller.center = m_StandingCenter;
+        controller.height = m_StandingHeight;
+        controller.radius = m_StandingRadius;
     }
 
     // Update is called once per frame
@@ -134,13 +149,23 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        UpdatePosition();
-        UpdateState();
-        //UpdateSlide();
-
         // check if out of bounds
         if (transform.position.y <= -20)
+        {
             gameManager.EndGame();
+            return;
+        }
+
+        // Update Horizontal movement
+        if (!m_Blocked)// && state != PlayerState.KnockBack)
+        {
+            controller.Move(new Vector3(m_HorizontalInput * m_RunSpeed, 0, 0) * Time.deltaTime);
+            //controller.Move(Vector3.forward * m_RunSpeed * Time.deltaTime);
+
+        }
+
+        UpdateVerticalPosition();
+        UpdateState();
 
         //gameManager.SetJumpMeter(m_JumpTimer, m_JumpTimer + m_JumpGracePeriod);
         //Debug.Log("On Ground: " + onGround);
@@ -175,9 +200,11 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(transform.position.x, transform.position.y, 0);
             controller.enabled = true;
         }
+
+        // move the camera
+        playerCamera.position = new Vector3(transform.position.x, transform.position.y, playerCamera.position.z);
     }
     #endregion
-
 
     /// <summary>
     /// Checks if the colliders around the player are touching anything using the Physics sphere
@@ -230,14 +257,8 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Sets the position of the player game object each frame
     /// </summary>
-    private void UpdatePosition()
+    private void UpdateVerticalPosition()
     {
-        // Update Horizontal movement
-        if (!m_Blocked)// && state != PlayerState.KnockBack)
-        {            
-            controller.Move(new Vector3(m_HorizontalInput * m_RunSpeed, 0, 0) * Time.deltaTime);
-        }
-
         if (m_IsGrounded && moveVelocity.y < 0)
         {
             moveVelocity.y = 0f;
@@ -315,10 +336,6 @@ public class PlayerController : MonoBehaviour
         controller.Move(moveVelocity * Time.deltaTime);
     }
 
-    private void UpdateSlide()
-    {
-
-    }
 
     /// <summary>
     /// Updates the state of the player by checking a series of conditions each frame
@@ -366,7 +383,7 @@ public class PlayerController : MonoBehaviour
             ChangeState(PlayerState.Sliding);
         }
 
-        // slideing -> running
+        // sliding -> running
         if (Input.GetAxis("Vertical") >= 0 && state == PlayerState.Sliding)
         {
             ChangeState(PlayerState.Running);
@@ -375,18 +392,17 @@ public class PlayerController : MonoBehaviour
         //Debug.Log("Vertical Axis: " + Input.GetAxis("Vertical") + ",  In Use: " + axisInUse);
     }
 
+    /// <summary>
+    /// Updates the state of the player's state machine
+    /// </summary>
+    /// <param name="newState">The player state to switch to</param>
     private void ChangeState(PlayerState newState)
     {       
         switch (newState)
         {
             case PlayerState.Running:
                 if (state == PlayerState.Falling)
-                    onLand.Invoke();
-
-                // update the collider
-                santaModel.rotation = Quaternion.Euler(0, 90, 0);                
-                controller.center = new Vector3(0, 0.2f, 0);
-                controller.height = 2.3f;
+                    onLand.Invoke();                
             break;
 
             case PlayerState.Jumping: onJump.Invoke();
@@ -396,17 +412,29 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case PlayerState.Sliding:
-                santaModel.rotation = Quaternion.Euler(-90, 90, 0);                
+                santaModel.rotation = Quaternion.Euler(-90, 90, 0);
 
                 // update the collider
-                controller.center = new Vector3(0, -0.5f, 0);
-                controller.height = 1;
-           break;
+                controller.center = m_SlidingCenter;
+                controller.height = m_SlidingHeight;
+                controller.radius = m_SlidingRadius;
+            break;
+        }
+
+        if(newState != PlayerState.Sliding)
+        {
+            // update the collider
+            santaModel.rotation = Quaternion.Euler(0, 90, 0);
+
+            controller.center = m_StandingCenter;
+            controller.height = m_StandingHeight;
+            controller.radius = m_StandingRadius;
         }
 
         state = newState;
         Debug.Log("Swithcing state to " + newState);
     }
+
     
     // Collision Detection
     private void OnControllerColliderHit(ControllerColliderHit hit)
