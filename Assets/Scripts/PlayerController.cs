@@ -136,6 +136,14 @@ public class PlayerController : MonoBehaviour
         controller.center = m_StandingCenter;
         controller.height = m_StandingHeight;
         controller.radius = m_StandingRadius;
+
+        // move wall colliders
+        foreach(var collider in m_GroundChecks)
+            collider.Translate(m_StandingCenter);
+        foreach (var collider in m_LowerWallChecks)        
+            collider.Translate(m_StandingCenter);
+        foreach (var collider in m_UpperWallChecks)
+            collider.Translate(m_StandingCenter);        
     }
 
     // Update is called once per frame
