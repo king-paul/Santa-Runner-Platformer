@@ -561,6 +561,10 @@ PrefabInstance:
       propertyPath: collectSound
       value: 
       objectReference: {fileID: 8300000, guid: 1c0d7a8bf0984b24392f4015ccee87e4, type: 3}
+    - target: {fileID: 847087774151380132, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
+      propertyPath: slideSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d63ff88353349714293a6fa9990d32b9, type: 3}
     - target: {fileID: 847087774151380134, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
       propertyPath: m_Name
       value: Player
@@ -571,7 +575,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 847087774151380140, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.8206589
+      value: 1.21
       objectReference: {fileID: 0}
     - target: {fileID: 847087774151380140, guid: 4bd2317529dd942488a4fa74b5bd3f81, type: 3}
       propertyPath: m_LocalPosition.z

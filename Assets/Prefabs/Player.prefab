@@ -486,13 +486,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edbd59ed60a3b754387bb5cd98914e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpSound: {fileID: 0}
+  jumpSound: {fileID: 8300000, guid: 4c7098200d540f4439b107c7299a9ba9, type: 3}
   doubleJumpSound: {fileID: 0}
-  landSound: {fileID: 0}
-  slideSound: {fileID: 0}
-  collideSound: {fileID: 0}
-  fallSound: {fileID: 0}
-  collectSound: {fileID: 0}
+  landSound: {fileID: 8300000, guid: e223f492407ad7e4795ca2181c4d4519, type: 3}
+  slideSound: {fileID: 8300000, guid: d63ff88353349714293a6fa9990d32b9, type: 3}
+  collideSound: {fileID: 8300000, guid: e95f5a69fe9f34148bc7b5f5faacfbd7, type: 3}
+  fallSound: {fileID: 8300000, guid: 2366327dabf8230449418c67c2bc45f1, type: 3}
+  collectSound: {fileID: 8300000, guid: 1c0d7a8bf0984b24392f4015ccee87e4, type: 3}
 --- !u!1 &970845380079046981
 GameObject:
   m_ObjectHideFlags: 0

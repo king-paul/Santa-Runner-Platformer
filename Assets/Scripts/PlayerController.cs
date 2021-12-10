@@ -168,16 +168,11 @@ public class PlayerController : MonoBehaviour
         // Update Horizontal movement
         if (!m_Blocked)// && state != PlayerState.KnockBack)
         {
-            controller.Move(new Vector3(m_HorizontalInput * m_RunSpeed, 0, 0) * Time.deltaTime);
-            //controller.Move(Vector3.forward * m_RunSpeed * Time.deltaTime);
-
+            controller.Move(new Vector3(m_RunSpeed, 0, 0) * Time.deltaTime);
         }
 
         UpdateVerticalPosition();
         UpdateState();
-
-        //gameManager.SetJumpMeter(m_JumpTimer, m_JumpTimer + m_JumpGracePeriod);
-        //Debug.Log("On Ground: " + onGround);
     }
 
     private void FixedUpdate()
@@ -200,6 +195,7 @@ public class PlayerController : MonoBehaviour
         if (gameManager.State != GameState.Running)
             return;
 
+        m_IsGrounded = IsOnGround();
         CheckColliders();
 
         // check if the player has moved off the z axis and if it has, move it back
@@ -212,23 +208,36 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
+    private bool IsOnGround()
+    {
+        RaycastHit hit;
+
+        foreach (var collider in m_GroundChecks)
+        {
+            if (Physics.Raycast(collider.position, Vector3.down, out hit))
+            {
+                float distance = (collider.position - hit.transform.position).magnitude;
+
+                //if(state == PlayerState.Falling)
+                    //Debug.Log("Distance = " + distance);
+
+                if (distance < 1.5)
+                {
+                    //Debug.Log("Is On Ground");
+                    return true;
+                }
+            }
+        }
+
+        //Debug.Log("Not on ground");
+        return false;
+    }
+
     /// <summary>
     /// Checks if the colliders around the player are touching anything using the Physics sphere
     /// </summary>
     private void CheckColliders()
-    {
-        m_HorizontalInput = 1;
-
-        // ground checks
-        m_IsGrounded = false;
-        foreach (var groundCheck in m_GroundChecks)
-        {
-            if (Physics.CheckSphere(groundCheck.position, 0.1f, m_collisionLayer))
-            {
-                m_IsGrounded = true;
-            }
-        }
-
+    {     
         // Lower wall collision checks
         if (state != PlayerState.Idle)
         {
@@ -265,8 +274,8 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Sets the position of the player game object each frame
     /// </summary>
-    private void UpdateVerticalPosition()
-    {
+    private void UpdateVerticalPosition()   
+    {       
         if (m_IsGrounded && moveVelocity.y < 0)
         {
             moveVelocity.y = 0f;
@@ -359,9 +368,8 @@ public class PlayerController : MonoBehaviour
             ChangeState(PlayerState.Falling);
         }
 
-        // jumping -> falling
-        if (state == PlayerState.Jumping && (m_CurrentVel.y <= 0.1))
-        if (state == PlayerState.Jumping && (m_CurrentVel.y <= 0.1))
+        // jumping -> falling        
+        if (state == PlayerState.Jumping && !m_IsGrounded && (m_CurrentVel.y < 0))
         {
             ChangeState(PlayerState.Falling);
         }
@@ -408,11 +416,11 @@ public class PlayerController : MonoBehaviour
         switch (newState)
         {
             case PlayerState.Running:
-                //if (state == PlayerState.Falling)                    
-                //onLand.Invoke();
+                if (state == PlayerState.Falling)
+                    playerAudio.PlayLandSound();
 
-                animator.SetTrigger("Stand");
-                //playerAudio.PlayLandSound();
+                if(state == PlayerState.Sliding)
+                    animator.SetTrigger("Stand");                
              break;
 
             case PlayerState.Jumping:
@@ -422,7 +430,7 @@ public class PlayerController : MonoBehaviour
 
             case PlayerState.Falling:
                 animator.SetTrigger("Fall");
-                //playerAudio.PlayFallSound();
+                playerAudio.PlayFallSound();
             break;
 
             case PlayerState.Sliding:
