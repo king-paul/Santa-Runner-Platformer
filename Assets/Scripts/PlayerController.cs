@@ -56,9 +56,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform[] m_LowerWallChecks;
 
     [Header("Events")]
-    public UnityEvent onBegin;
+    /*public UnityEvent onBegin;
     public UnityEvent onJump, onAirJump, onFall, onLand, onCollisionWithWall, onCollisionWithHazard,
-        onFallOffLevel, onPresentCollect, onFoodCollect;
+        onFallOffLevel, onPresentCollect, onFoodCollect;*/
 
     // private variables
     private float m_Stamina;
@@ -77,10 +77,10 @@ public class PlayerController : MonoBehaviour
     private PlayerState state;
     private Transform santaModel;
 
-    // Controllers/Managers
+    // Components/Managers
     CharacterController controller;
     GameManager gameManager;
-    Touch touchInput;
+    Animator animator;
 
     bool hasAirJumped;
     #endregion
@@ -121,8 +121,10 @@ public class PlayerController : MonoBehaviour
     {
         m_Stamina = m_MaxStamina / 100 * m_StartingPercent;
         controller = GetComponent<CharacterController>();
-        gameManager = GameManager.m_Instance;
-        //onGround = true;
+        animator = GetComponentInChildren<Animator>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        //gameManager = GameManager.m_Instance;
+        
         SetAlive(true);
         
         StartRunning();
@@ -185,8 +187,8 @@ public class PlayerController : MonoBehaviour
             gameManager.SetStaminaMeter(m_Stamina, m_MaxStamina);
             m_Stamina -= m_StaminaDrainSpeed * Time.fixedDeltaTime;
 
-            if (m_Stamina <= 0)
-                gameManager.EndGame();
+            //if (m_Stamina <= 0)
+                //gameManager.EndGame();
 
             //Debug.Log("Stamina Left: " + m_Stamina);
         }
@@ -291,12 +293,10 @@ public class PlayerController : MonoBehaviour
                         ChangeState(PlayerState.IdleJump);
                     else                        
                         ChangeState(PlayerState.Jumping);
-
-                    //onJump.Invoke();
                 }
                 else if(m_enableAirJump)
                 {
-                    onAirJump.Invoke();
+                    //onAirJump.Invoke();
                     hasAirJumped = true;
                 }
                 
@@ -367,13 +367,10 @@ public class PlayerController : MonoBehaviour
         {
             //Debug.Log("Collision with wall detected. State = " + state);
             m_IsAlive = false;
+            ChangeState(PlayerState.Idle);
+            animator.SetTrigger("Collision");
+            //onCollisionWithWall.Invoke();                
 
-            // running -> idle
-            //if (state == PlayerState.Running)
-            //{
-                ChangeState(PlayerState.Idle);
-                onCollisionWithWall.Invoke();
-            //}
         }
 
         // falling -> running
@@ -393,6 +390,10 @@ public class PlayerController : MonoBehaviour
         }
 
         //Debug.Log("Vertical Axis: " + Input.GetAxis("Vertical") + ",  In Use: " + axisInUse);
+
+        // update animation parameters
+        animator.SetBool("Grounded", m_IsGrounded);
+        animator.SetFloat("Stamina", m_Stamina);
     }
 
     /// <summary>
@@ -404,18 +405,21 @@ public class PlayerController : MonoBehaviour
         switch (newState)
         {
             case PlayerState.Running:
-                if (state == PlayerState.Falling)
-                    onLand.Invoke();                
-            break;
+                //if (state == PlayerState.Falling)                    
+                    //onLand.Invoke();
+             break;
 
-            case PlayerState.Jumping: onJump.Invoke();
+            case PlayerState.Jumping: //onJump.Invoke();
+                animator.SetTrigger("Jump");
                 break;
 
-            case PlayerState.Falling: onFall.Invoke(); 
+            case PlayerState.Falling: //onFall.Invoke();
+                animator.SetTrigger("Fall");
                 break;
 
             case PlayerState.Sliding:
-                santaModel.rotation = Quaternion.Euler(-90, 90, 0);
+                //santaModel.rotation = Quaternion.Euler(-90, 90, 0);
+                animator.SetTrigger("Slide");
 
                 // update the collider
                 controller.center = m_SlidingCenter;
@@ -458,8 +462,7 @@ public class PlayerController : MonoBehaviour
         // check if there is a collision with an obstacle
         if (hit.gameObject.layer == LayerMask.NameToLayer("Hazard"))
         {
-            SetAlive(false);
-            onCollisionWithHazard.Invoke();
+            SetAlive(false);            
             gameManager.UpdateGameState(GameState.Dead);
         }
 
@@ -482,7 +485,7 @@ public class PlayerController : MonoBehaviour
             case "KillBox": case "KillZone":
                 gameManager.UpdateGameState(GameState.Dead);
                 SetAlive(false);
-                onFallOffLevel.Invoke();                
+                                
                 break;
         }
 
