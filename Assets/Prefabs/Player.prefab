@@ -196,12 +196,10 @@ GameObject:
   m_Component:
   - component: {fileID: 847087774151380140}
   - component: {fileID: 847087774151380128}
-  - component: {fileID: 847087774151380129}
   - component: {fileID: 847087774151380130}
   - component: {fileID: 1585251712875577179}
   - component: {fileID: 847087774151380131}
   - component: {fileID: 847087774151380132}
-  - component: {fileID: 847087774151380133}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -242,26 +240,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0
-  m_Center: {x: 0, y: 0.21, z: 0}
---- !u!95 &847087774151380129
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 847087774151380134}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: e01c3e643461fa941b994be0e5f1f004, type: 3}
-  m_Controller: {fileID: 9100000, guid: 6ed3ed91f1f5ed24d9054a0ecf5e1956, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!82 &847087774151380130
 AudioSource:
   m_ObjectHideFlags: 0
@@ -466,7 +445,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469a13f844f110d4a8848573898958d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 0}
   m_MaxStamina: 100
   m_StartingPercent: 100
   m_StaminaDrainSpeed: 5
@@ -569,18 +547,6 @@ MonoBehaviour:
   collideSound: {fileID: 0}
   fallSound: {fileID: 0}
   collectSound: {fileID: 0}
---- !u!114 &847087774151380133
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 847087774151380134}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73cb8c26d800d5849b15995d9f6719e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &970845380079046981
 GameObject:
   m_ObjectHideFlags: 0
@@ -1470,7 +1436,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4603569959348249126}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.22500372, y: -1.13, z: 0}
+  m_LocalPosition: {x: 0.22500372, y: 0.005, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1055182013560910816}
@@ -2444,6 +2410,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8731892408157134470}
+  - component: {fileID: 237757730}
   m_Layer: 0
   m_Name: Santa
   m_TagString: Untagged
@@ -2459,7 +2426,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8243339171621667900}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: -0.92, z: -0.02}
+  m_LocalPosition: {x: -0, y: 0, z: -0.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4489108901415700738}
@@ -2467,6 +2434,25 @@ Transform:
   m_Father: {fileID: 847087774151380140}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &237757730
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8243339171621667900}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: e01c3e643461fa941b994be0e5f1f004, type: 3}
+  m_Controller: {fileID: 9100000, guid: 6ed3ed91f1f5ed24d9054a0ecf5e1956, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8394077865926545280
 GameObject:
   m_ObjectHideFlags: 0
@@ -2491,7 +2477,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8394077865926545280}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.236, z: -0.24}
+  m_LocalPosition: {x: -0, y: 0.87, z: -0.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6901410036705086196}

@@ -130,7 +130,7 @@ public class PlayerController : MonoBehaviour
         santaModel = transform.Find("Santa");
 
         // set default angle and standing collider position
-        santaModel.rotation = Quaternion.Euler(0, 90, 0);
+        /*santaModel.rotation = Quaternion.Euler(0, 90, 0);
         controller.center = m_StandingCenter;
         controller.height = m_StandingHeight;
         controller.radius = m_StandingRadius;
@@ -141,7 +141,7 @@ public class PlayerController : MonoBehaviour
         foreach (var collider in m_LowerWallChecks)        
             collider.Translate(m_StandingCenter);
         foreach (var collider in m_UpperWallChecks)
-            collider.Translate(m_StandingCenter);        
+            collider.Translate(m_StandingCenter);*/     
     }
 
     // Update is called once per frame
