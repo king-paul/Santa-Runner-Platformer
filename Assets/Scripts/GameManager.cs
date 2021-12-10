@@ -89,10 +89,16 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Reloads the unity scene by loading the first one in the project build
     /// </summary>
-    public void RestartScene() { SceneManager.LoadScene(0); }
+    public void RestartScene() { SceneManager.LoadScene("Main Scene"); }
     public void QuitGame() {
         Debug.Log("Quit Button Clicked");
-        Application.Quit(); }
+        Application.Quit(); 
+    }
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
+    }
 
     /// <summary>
     /// Increases the number of coins collected by 1

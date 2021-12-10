@@ -10,11 +10,9 @@ public class GuiController : MonoBehaviour
     //public TextMeshProUGUI distanceText;
     //public TextMeshProUGUI gameOverDistanceText;
     public TextMeshProUGUI presentsCount;
-    //public RectTransform jumpMeter;
     public RectTransform staminaMeter;
     public GameObject titleScreen;
     public GameObject gameOverUI;
-    public Button continueButton;
 
     private TextMeshProUGUI[] continueText;
 
@@ -50,37 +48,5 @@ public class GuiController : MonoBehaviour
         float width = maxBarWidth / maxStamina * curStamina;
         staminaMeter.sizeDelta = new Vector2(width, staminaMeter.rect.height);
     }
-
-    /// <summary>
-    /// Displays the Game over Menu on the screen with 3 buttons
-    /// </summary>
-    /// <param name="currentCoins">The coins that the player currently has</param>
-    /// <param name="coinsNeeded">The number of coins needed to click the continue button</param>
-    //public void ShowGameOverScreen(int currentCoins, int coinsNeeded)
-    //{
-    //    gameOverUI.SetActive(true);
-    //    continueText = continueButton.GetComponentsInChildren<TextMeshProUGUI>();
-    //    continueText[1].text = coinsNeeded.ToString();
-
-    //    if (currentCoins >= coinsNeeded)
-    //    {
-    //        continueButton.interactable = true;            
-
-    //        foreach(TextMeshProUGUI text in continueText)
-    //        {
-    //            text.color = Color.yellow;
-    //        }            
-    //    }
-    //    else
-    //    {
-    //        continueButton.interactable = false;
-
-    //        foreach (TextMeshProUGUI text in continueText)
-    //        {
-    //            text.color = new Color(127, 127, 0);
-    //        }
-    //    }
-
-    //}
 
 }
