@@ -448,18 +448,18 @@ MonoBehaviour:
   m_MaxStamina: 100
   m_StartingPercent: 100
   m_StaminaDrainSpeed: 5
-  m_RunSpeed: 5
+  m_RunSpeed: 10
   m_JumpHeight: 5
-  m_FallMultiplier: 8.16
-  m_JumpMultiplier: 2
+  m_FallMultiplier: 5
+  m_JumpMultiplier: 3.5
   m_enableAirJump: 0
   m_AirJumpMultiplier: 4
   m_StandingCenter: {x: 0, y: 1.2, z: 0}
   m_StandingRadius: 0.5
   m_StandingHeight: 2.3
-  m_SlidingCenter: {x: 0, y: -0.5, z: 0}
+  m_SlidingCenter: {x: 0, y: 0.5, z: 0}
   m_SlidingRadius: 0.5
-  m_SlidingHeight: 1
+  m_SlidingHeight: 0.9
   m_collisionLayer:
     serializedVersion: 2
     m_Bits: 256
