@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-public enum PlayerState { Idle, Running, Jumping, Falling, IdleJump }
+public enum PlayerState { Idle, Running, Jumping, Falling, Sliding, IdleJump }
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
@@ -36,14 +36,14 @@ public class PlayerController : MonoBehaviour
     public bool m_enableAirJump = false;
     [Range(1, 10)]
     public float m_AirJumpMultiplier = 4f;
-    //public float m_KnockBackSpeed = 1f;
-    
+    //public float m_KnockBackSpeed = 1f;    
 
     // serialized private values
     [Header("Collision Checkers")]
     [SerializeField] LayerMask m_collisionLayer = 8;
     [SerializeField] private Transform[] m_GroundChecks = null;
-    [SerializeField] private Transform[] m_WallChecks = null;
+    [SerializeField] private Transform[] m_UpperWallChecks;
+    [SerializeField] private Transform[] m_LowerWallChecks;
 
     [Header("Events")]
     public UnityEvent onBegin;
@@ -59,11 +59,13 @@ public class PlayerController : MonoBehaviour
     private bool m_IsGrounded;
     private bool m_Blocked;
     private bool m_IsAlive;
-    
+    private bool axisInUse = false;
+
     private Vector3 moveVelocity;
     private Vector3 m_PrevPos;
     private Vector3 m_CurrentVel;
     private PlayerState state;
+    private Transform santaModel;
 
     // Controllers/Managers
     CharacterController controller;
@@ -103,26 +105,22 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
+    #region unity functions
     // Start is called before the first frame update
     void Start()
     {
-        // try/catch block
-        try
-        {
-            m_Stamina = m_MaxStamina / 100 * m_StartingPercent;
-            controller = GetComponent<CharacterController>();
-            gameManager = GameManager.m_Instance;
-            //onGround = true;
-            SetAlive(true);
+        m_Stamina = m_MaxStamina / 100 * m_StartingPercent;
+        controller = GetComponent<CharacterController>();
+        gameManager = GameManager.m_Instance;
+        //onGround = true;
+        SetAlive(true);
 
-            //state = PlayerState.Idle;
-            StartRunning();
-            hasAirJumped = false;
-        }
-        catch (Exception e)
-        {
-            Debug.LogError("Exception in PlayerController: " + e.Message);
-        }
+        //state = PlayerState.Idle;
+        StartRunning();
+        hasAirJumped = false;
+
+        santaModel = transform.Find("Santa");
+
     }
 
     // Update is called once per frame
@@ -138,6 +136,7 @@ public class PlayerController : MonoBehaviour
 
         UpdatePosition();
         UpdateState();
+        //UpdateSlide();
 
         // check if out of bounds
         if (transform.position.y <= -20)
@@ -177,6 +176,8 @@ public class PlayerController : MonoBehaviour
             controller.enabled = true;
         }
     }
+    #endregion
+
 
     /// <summary>
     /// Checks if the colliders around the player are touching anything using the Physics sphere
@@ -195,10 +196,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        // Lower wall collision checks
         if (state != PlayerState.Idle)
         {
             // wall checks        
-            foreach (var wallCheck in m_WallChecks)
+            foreach (var wallCheck in m_LowerWallChecks)
             {
                 if (Physics.CheckSphere(wallCheck.position, 0.1f, m_collisionLayer))
                 {
@@ -206,9 +208,23 @@ public class PlayerController : MonoBehaviour
                     return;
                 }
             }
-            m_Blocked = false;
         }
 
+        // Upper wall collision checks
+        if (state != PlayerState.Idle && state != PlayerState.Sliding)
+        {
+            // wall checks        
+            foreach (var wallCheck in m_UpperWallChecks)
+            {
+                if (Physics.CheckSphere(wallCheck.position, 0.1f, m_collisionLayer))
+                {
+                    m_Blocked = true;
+                    return;
+                }
+            }            
+        }
+
+        m_Blocked = false;
     }
 
     /// <summary>
@@ -221,10 +237,6 @@ public class PlayerController : MonoBehaviour
         {            
             controller.Move(new Vector3(m_HorizontalInput * m_RunSpeed, 0, 0) * Time.deltaTime);
         }
-        //else if(state == PlayerState.KnockBack)
-        //{
-        //    controller.Move(Vector3.left * m_KnockBackSpeed * Time.deltaTime);
-        //}
 
         if (m_IsGrounded && moveVelocity.y < 0)
         {
@@ -237,7 +249,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //Jumping
-        m_JumpPressed = (Input.GetButtonDown("Jump") || Input.touchCount > 0);
+        m_JumpPressed = Input.GetButtonDown("Jump");
 
         if (m_JumpPressed)
         {
@@ -251,12 +263,12 @@ public class PlayerController : MonoBehaviour
             {
                 if (m_IsGrounded)
                 {
-                    if (state == PlayerState.Idle)
-                        state = PlayerState.IdleJump;
-                    else
-                        state = PlayerState.Jumping;
+                    if (state == PlayerState.Idle)                        
+                        ChangeState(PlayerState.IdleJump);
+                    else                        
+                        ChangeState(PlayerState.Jumping);
 
-                    onJump.Invoke();
+                    //onJump.Invoke();
                 }
                 else if(m_enableAirJump)
                 {
@@ -303,6 +315,11 @@ public class PlayerController : MonoBehaviour
         controller.Move(moveVelocity * Time.deltaTime);
     }
 
+    private void UpdateSlide()
+    {
+
+    }
+
     /// <summary>
     /// Updates the state of the player by checking a series of conditions each frame
     /// </summary>
@@ -316,40 +333,79 @@ public class PlayerController : MonoBehaviour
         // running -> Falling
         if (state == PlayerState.Running && !m_IsGrounded && m_CurrentVel.y < 0)
         {
-            state = PlayerState.Falling;
-            onFall.Invoke();
+            ChangeState(PlayerState.Falling);
         }
 
         // jumping -> falling
-        if (state == PlayerState.Jumping && (m_CurrentVel.y <= 0))
-        if (state == PlayerState.Jumping && (m_CurrentVel.y <= 0))
+        if (state == PlayerState.Jumping && (m_CurrentVel.y <= 0.1))
+        if (state == PlayerState.Jumping && (m_CurrentVel.y <= 0.1))
         {
-            state = PlayerState.Falling;
-            onFall.Invoke();
+            ChangeState(PlayerState.Falling);
         }
 
         if (m_Blocked && m_IsAlive) //state != PlayerState.Idle && state != PlayerState.KnockBack)
         {
-            Debug.Log("Collision with wall detected. State = " + state);
+            //Debug.Log("Collision with wall detected. State = " + state);
             m_IsAlive = false;
 
             // running -> idle
-            if (state == PlayerState.Running)
-            {                
-                state = PlayerState.Idle;
-                onCollisionWithWall.Invoke();
-            }
-            // jumping or falling -> knockback
-            //else if (state != PlayerState.IdleJump)
+            //if (state == PlayerState.Running)
             //{
-            //    state = PlayerState.KnockBack;
+                ChangeState(PlayerState.Idle);
+                onCollisionWithWall.Invoke();
             //}
         }
 
         // falling -> running
         if (m_IsGrounded && state == PlayerState.Falling)
-            state = PlayerState.Running;
-        
+            ChangeState(PlayerState.Running);
+
+        // running -> sliding        
+        if(Input.GetAxis("Vertical") < 0 && state == PlayerState.Running)
+        {           
+            ChangeState(PlayerState.Sliding);
+        }
+
+        // slideing -> running
+        if (Input.GetAxis("Vertical") >= 0 && state == PlayerState.Sliding)
+        {
+            ChangeState(PlayerState.Running);
+        }
+
+        //Debug.Log("Vertical Axis: " + Input.GetAxis("Vertical") + ",  In Use: " + axisInUse);
+    }
+
+    private void ChangeState(PlayerState newState)
+    {       
+        switch (newState)
+        {
+            case PlayerState.Running:
+                if (state == PlayerState.Falling)
+                    onLand.Invoke();
+
+                // update the collider
+                santaModel.rotation = Quaternion.Euler(0, 90, 0);                
+                controller.center = new Vector3(0, 0.2f, 0);
+                controller.height = 2.3f;
+            break;
+
+            case PlayerState.Jumping: onJump.Invoke();
+                break;
+
+            case PlayerState.Falling: onFall.Invoke(); 
+                break;
+
+            case PlayerState.Sliding:
+                santaModel.rotation = Quaternion.Euler(-90, 90, 0);                
+
+                // update the collider
+                controller.center = new Vector3(0, -0.5f, 0);
+                controller.height = 1;
+           break;
+        }
+
+        state = newState;
+        Debug.Log("Swithcing state to " + newState);
     }
     
     // Collision Detection
@@ -359,13 +415,13 @@ public class PlayerController : MonoBehaviour
             return;
 
         // check if there is a collision with the ground
-        if (state != PlayerState.Running && state != PlayerState.Idle
+        if (state == PlayerState.Falling
             && (hit.gameObject.layer == LayerMask.NameToLayer("Level")))
         {
             //moveVelocity.y = 0;
             hasAirJumped = false;
-            state = PlayerState.Running;
-            onLand.Invoke();
+            //onLand.Invoke();
+            ChangeState(PlayerState.Running);
         }
 
         // check if there is a collision with an obstacle
@@ -412,10 +468,21 @@ public class PlayerController : MonoBehaviour
             Gizmos.DrawWireSphere(checks.transform.position, 0.1f);
         }
         Gizmos.color = Color.magenta;
-        foreach (var checks in m_WallChecks)
+        if (m_UpperWallChecks != null)
         {
-            Gizmos.DrawWireSphere(checks.transform.position, 0.1f);
+            foreach (var checks in m_UpperWallChecks)
+            {
+                Gizmos.DrawWireSphere(checks.transform.position, 0.1f);
+            }
         }
+        if (m_LowerWallChecks != null)
+        {
+            foreach (var checks in m_LowerWallChecks)
+            {
+                Gizmos.DrawWireSphere(checks.transform.position, 0.1f);
+            }
+        }
+
     }
 
 
