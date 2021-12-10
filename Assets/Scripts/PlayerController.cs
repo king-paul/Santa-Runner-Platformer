@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform[] m_UpperWallChecks;
     [SerializeField] private Transform[] m_LowerWallChecks;
 
-    [Header("Events")]
+    //[Header("Events")]
     /*public UnityEvent onBegin;
     public UnityEvent onJump, onAirJump, onFall, onLand, onCollisionWithWall, onCollisionWithHazard,
         onFallOffLevel, onPresentCollect, onFoodCollect;*/
@@ -78,9 +78,10 @@ public class PlayerController : MonoBehaviour
     private Transform santaModel;
 
     // Components/Managers
-    CharacterController controller;
-    GameManager gameManager;
+    CharacterController controller;    
     Animator animator;
+    GameManager gameManager;
+    PlayerSound playerAudio;
 
     bool hasAirJumped;
     #endregion
@@ -123,7 +124,7 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        //gameManager = GameManager.m_Instance;
+        playerAudio = GetComponent<PlayerSound>();
         
         SetAlive(true);
         
@@ -143,7 +144,7 @@ public class PlayerController : MonoBehaviour
         foreach (var collider in m_LowerWallChecks)        
             collider.Translate(m_StandingCenter);
         foreach (var collider in m_UpperWallChecks)
-            collider.Translate(m_StandingCenter);*/     
+            collider.Translate(m_StandingCenter);*/
     }
 
     // Update is called once per frame
@@ -237,6 +238,7 @@ public class PlayerController : MonoBehaviour
                 if (Physics.CheckSphere(wallCheck.position, 0.1f, m_collisionLayer))
                 {
                     m_Blocked = true;
+                    playerAudio.PlayCollideSound();
                     return;
                 }
             }
@@ -251,6 +253,7 @@ public class PlayerController : MonoBehaviour
                 if (Physics.CheckSphere(wallCheck.position, 0.1f, m_collisionLayer))
                 {
                     m_Blocked = true;
+                    playerAudio.PlayCollideSound();
                     return;
                 }
             }            
@@ -397,7 +400,7 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Updates the state of the player's state machine
+    /// transtions the state of the player's state machine to another state
     /// </summary>
     /// <param name="newState">The player state to switch to</param>
     private void ChangeState(PlayerState newState)
@@ -406,33 +409,40 @@ public class PlayerController : MonoBehaviour
         {
             case PlayerState.Running:
                 //if (state == PlayerState.Falling)                    
-                    //onLand.Invoke();
+                //onLand.Invoke();
+
+                animator.SetTrigger("Stand");
+                //playerAudio.PlayLandSound();
              break;
 
-            case PlayerState.Jumping: //onJump.Invoke();
+            case PlayerState.Jumping:
                 animator.SetTrigger("Jump");
-                break;
+                playerAudio.PlayJumpSound();
+            break;
 
-            case PlayerState.Falling: //onFall.Invoke();
+            case PlayerState.Falling:
                 animator.SetTrigger("Fall");
-                break;
+                //playerAudio.PlayFallSound();
+            break;
 
             case PlayerState.Sliding:
                 //santaModel.rotation = Quaternion.Euler(-90, 90, 0);
                 animator.SetTrigger("Slide");
+                playerAudio.PlaySlideSound();
 
                 // update the collider
                 controller.center = m_SlidingCenter;
                 controller.height = m_SlidingHeight;
                 controller.radius = m_SlidingRadius;
             break;
+
+            case PlayerState.Idle:
+                playerAudio.PlayCollideSound();
+                break;
         }
 
         if(newState != PlayerState.Sliding)
         {
-            // update the collider
-            santaModel.rotation = Quaternion.Euler(0, 90, 0);
-
             controller.center = m_StandingCenter;
             controller.height = m_StandingHeight;
             controller.radius = m_StandingRadius;
@@ -441,7 +451,6 @@ public class PlayerController : MonoBehaviour
         state = newState;
         Debug.Log("Swithcing state to " + newState);
     }
-
     
     // Collision Detection
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -474,21 +483,24 @@ public class PlayerController : MonoBehaviour
         if (!m_IsAlive)
             return;
 
-        switch(other.tag)
+        if(other.gameObject.layer == LayerMask.NameToLayer("Collectable"))
         {
-            //case "Collectable":
-            //    Destroy(other.gameObject);
-            //    onFoodCollect.Invoke();
-            //    gameManager.AddCoin();
-            //break;
-
-            case "KillBox": case "KillZone":
-                gameManager.UpdateGameState(GameState.Dead);
-                SetAlive(false);
-                                
-                break;
+            playerAudio.PlayCollectSound();
         }
 
+        //switch(other.tag)
+        //{
+        //    case "Collectable":
+        //        // Destroy(other.gameObject);
+        //        playerAudio.PlayCollectSound();
+        //   break;
+
+        //    case "KillBox": case "KillZone":
+        //        gameManager.UpdateGameState(GameState.Dead);
+        //        SetAlive(false);
+                                
+        //        break;
+        //}
     }
 
     /// <summary>

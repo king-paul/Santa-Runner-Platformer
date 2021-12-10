@@ -11,13 +11,13 @@ public class PlayerSound : MonoBehaviour
     // audio clip objects
     [Header("Audio Clips")]
     public AudioClip jumpSound;
-    public AudioClip highJumpSound;
+    public AudioClip doubleJumpSound;    
     public AudioClip landSound;
-    public AudioClip hazardSound;
+    public AudioClip slideSound;
+    //public AudioClip hazardSound;
     public AudioClip collideSound;
     public AudioClip fallSound;
     public AudioClip collectSound;
-
 
     // audio source objects
     private AudioSource playerAudio;
@@ -66,10 +66,10 @@ public class PlayerSound : MonoBehaviour
     /// Plays the clip used for the high jump sound effect
     /// </summary>
     /// <param name="volumeScale">The volume of the sound</param>
-    public void PlayHighJumpSound(float volumeScale = 1.0f)
+    public void PlayDoubleJumpSound(float volumeScale = 1.0f)
     {
         footsteps.Stop();
-        playerAudio.PlayOneShot(highJumpSound, volumeScale);
+        playerAudio.PlayOneShot(doubleJumpSound, volumeScale);
     }
 
     /// <summary>
@@ -96,11 +96,11 @@ public class PlayerSound : MonoBehaviour
     /// Plays the clip used for the "death from hazard" sound effect
     /// </summary>
     /// <param name="volumeScale">The volume of the sound</param>
-    public void PlayHazardSound(float volumeScale = 1.0f)
-    {
-        footsteps.Stop();
-        playerAudio.PlayOneShot(hazardSound, volumeScale);
-    }
+    //public void PlayHazardSound(float volumeScale = 1.0f)
+    //{
+    //    footsteps.Stop();
+    //    playerAudio.PlayOneShot(hazardSound, volumeScale);
+    //}
 
     /// <summary>
     /// Plays the clip used for the "falling" sound effect
@@ -116,10 +116,15 @@ public class PlayerSound : MonoBehaviour
     /// Plays the clip used for the "coin collect" sound effect
     /// </summary>
     /// <param name="volumeScale">The volume of the sound</param>
-    public void PlayCoinCollectSound(float volumeScale = 1.0f)
+    public void PlayCollectSound(float volumeScale = 1.0f)
     {
         footsteps.Stop();
         playerAudio.PlayOneShot(collectSound, volumeScale);
+    }
+
+    public void PlaySlideSound(float volumeScale = 1.0f)
+    {
+        playerAudio.PlayOneShot(slideSound, volumeScale);
     }
 
 }
