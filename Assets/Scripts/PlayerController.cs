@@ -221,7 +221,7 @@ public class PlayerController : MonoBehaviour
                 //if(state == PlayerState.Falling)
                     //Debug.Log("Distance = " + distance);
 
-                if (distance < 1.5)
+                if (distance < 1.5 && hit.transform.gameObject.layer == 8)
                 {
                     //Debug.Log("Is On Ground");
                     return true;
@@ -457,7 +457,7 @@ public class PlayerController : MonoBehaviour
         }
 
         state = newState;
-        Debug.Log("Swithcing state to " + newState);
+        //Debug.Log("Swithcing state to " + newState);
     }
     
     // Collision Detection
