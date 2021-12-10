@@ -146,27 +146,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_StartIdle
-      rect:
-        serializedVersion: 2
-        x: 581
-        y: 492
-        width: 581
-        height: 164
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ba73b74a0cb4a4dd0800000000000000
-      internalID: -2501103352285546581
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: UI_BackHover
       rect:
         serializedVersion: 2
@@ -183,27 +162,6 @@ TextureImporter:
       bones: []
       spriteID: 001debeceeea5dd80800000000000000
       internalID: -8226476803628281600
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_BackIdle
-      rect:
-        serializedVersion: 2
-        x: 581
-        y: 327
-        width: 581
-        height: 165
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3718ef0c82b3b1600800000000000000
-      internalID: 440010434821390707
       vertices: []
       indices: 
       edges: []
@@ -230,27 +188,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_RetryIdle
-      rect:
-        serializedVersion: 2
-        x: 581
-        y: 163
-        width: 581
-        height: 164
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1141bb53f1c4d2350800000000000000
-      internalID: 5993530376029148177
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: UI_QuitHover
       rect:
         serializedVersion: 2
@@ -267,111 +204,6 @@ TextureImporter:
       bones: []
       spriteID: a11c56f3899e217b0800000000000000
       internalID: -5254880975080013542
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_QuitIdle
-      rect:
-        serializedVersion: 2
-        x: 581
-        y: 0
-        width: 581
-        height: 163
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 69729b72c83b22e70800000000000000
-      internalID: 9089024412530321302
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_StartPress
-      rect:
-        serializedVersion: 2
-        x: 1162
-        y: 492
-        width: 581
-        height: 164
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3081f559277565ef0800000000000000
-      internalID: -119812190434813949
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_BackPress
-      rect:
-        serializedVersion: 2
-        x: 1162
-        y: 327
-        width: 581
-        height: 165
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5195c5400475bdf50800000000000000
-      internalID: 6907210385965472021
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_RetryPress
-      rect:
-        serializedVersion: 2
-        x: 1162
-        y: 163
-        width: 581
-        height: 164
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3a99f8d70fb66eeb0800000000000000
-      internalID: -4690943281216906845
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_QuitPress
-      rect:
-        serializedVersion: 2
-        x: 1162
-        y: 0
-        width: 581
-        height: 163
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bb4fdeab735cdb260800000000000000
-      internalID: 7115059829465281723
       vertices: []
       indices: 
       edges: []
