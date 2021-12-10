@@ -15,8 +15,6 @@ public enum PlayerState { Idle, Running, Jumping, Falling, Sliding, IdleJump }
 public class PlayerController : MonoBehaviour
 {
     #region declaration block
-    public Transform playerCamera;
-
     [Header("Stamina")]
     [Range(10, 200)]
     [SerializeField] float m_MaxStamina = 100;
@@ -208,9 +206,6 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(transform.position.x, transform.position.y, 0);
             controller.enabled = true;
         }
-
-        // move the camera
-        playerCamera.position = new Vector3(transform.position.x, transform.position.y, playerCamera.position.z);
     }
     #endregion
 
@@ -520,6 +515,5 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-
 
 }
